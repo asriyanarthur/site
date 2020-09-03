@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
 <head>
-<!-- 2020-09-03 Чт 20:21 -->
+<!-- 2020-09-03 Чт 20:42 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Заметки про Oracle</title>
@@ -253,44 +253,22 @@ for the JavaScript code in this tag.
 <h2>&#1057;&#1086;&#1076;&#1077;&#1088;&#1078;&#1072;&#1085;&#1080;&#1077;</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgf3a0d7e">1. statement_queuing и параллелизм</a></li>
-<li><a href="#org705973f">2. Регулярные выражения в oracle</a></li>
+<li><a href="#org764a2dc">1. statement_queuing и параллелизм</a></li>
+<li><a href="#orge56de3a">2. Регулярные выражения в oracle</a></li>
 </ul>
 </div>
 </div>
 
 
 
-<div id="outline-container-orgf3a0d7e" class="outline-2">
-<h2 id="orgf3a0d7e"><span class="section-number-2">1</span> statement_queuing и параллелизм</h2>
+<div id="outline-container-org764a2dc" class="outline-2">
+<h2 id="org764a2dc"><span class="section-number-2">1</span> statement_queuing и параллелизм</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Если вы не хотите чтобы ваш запрос даунгрейдился, есть хинт
 STATEMENT_QUEUING. Неверное и необдуманное использование данного
 хинта, как и многих других черевато нехорошими последствиями
 </p>
-
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-
-
-<colgroup>
-<col  class="org-left" />
-
-<col  class="org-left" />
-</colgroup>
-<thead>
-<tr>
-<th scope="col" class="org-left"><b>asd</b></th>
-<th scope="col" class="org-left"><b>asd</b></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="org-left">asd</td>
-<td class="org-left">&#xa0;</td>
-</tr>
-</tbody>
-</table>
 
 <div class="org-src-container">
 <pre class="src src-sql"><span style="color: #fb4933;">select</span> <span style="color: #7c6f64;">/*+ parallel(8) statement_queuing */</span> *
@@ -301,8 +279,8 @@ STATEMENT_QUEUING. Неверное и необдуманное использо
 </div>
 </div>
 
-<div id="outline-container-org705973f" class="outline-2">
-<h2 id="org705973f"><span class="section-number-2">2</span> Регулярные выражения в oracle</h2>
+<div id="outline-container-orge56de3a" class="outline-2">
+<h2 id="orge56de3a"><span class="section-number-2">2</span> Регулярные выражения в oracle</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Если вам понадобилось найти в неструктурированном тексте число между
@@ -377,7 +355,7 @@ in oracle there is no lookbehind but you can cheat with capture group?
 </div>
 <div id="postamble" class="status">
 <p class="author">&#1040;&#1074;&#1090;&#1086;&#1088;: Асриян Артур</p>
-<p class="date">Created: 2020-09-03 Чт 20:21</p>
+<p class="date">Created: 2020-09-03 Чт 20:42</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
