@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
 <head>
-<!-- 2020-09-03 Чт 20:42 -->
+<!-- 2021-01-22 Fri 00:38 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Заметки про Oracle</title>
@@ -253,16 +253,16 @@ for the JavaScript code in this tag.
 <h2>&#1057;&#1086;&#1076;&#1077;&#1088;&#1078;&#1072;&#1085;&#1080;&#1077;</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org764a2dc">1. statement_queuing и параллелизм</a></li>
-<li><a href="#orge56de3a">2. Регулярные выражения в oracle</a></li>
+<li><a href="#org0c59cd8">1. statement_queuing и параллелизм</a></li>
+<li><a href="#orgde3c944">2. Регулярные выражения в oracle</a></li>
 </ul>
 </div>
 </div>
 
 
 
-<div id="outline-container-org764a2dc" class="outline-2">
-<h2 id="org764a2dc"><span class="section-number-2">1</span> statement_queuing и параллелизм</h2>
+<div id="outline-container-org0c59cd8" class="outline-2">
+<h2 id="org0c59cd8"><span class="section-number-2">1</span> statement_queuing и параллелизм</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Если вы не хотите чтобы ваш запрос даунгрейдился, есть хинт
@@ -271,16 +271,16 @@ STATEMENT_QUEUING. Неверное и необдуманное использо
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sql"><span style="color: #fb4933;">select</span> <span style="color: #7c6f64;">/*+ parallel(8) statement_queuing */</span> *
-  <span style="color: #fb4933;">from</span> dual
-  <span style="color: #fb4933;">where</span> rownum &lt; 5
+<pre class="src src-sql">select /*+ parallel(8) statement_queuing */ *
+  from dual
+  where rownum &lt; 5
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orge56de3a" class="outline-2">
-<h2 id="orge56de3a"><span class="section-number-2">2</span> Регулярные выражения в oracle</h2>
+<div id="outline-container-orgde3c944" class="outline-2">
+<h2 id="orgde3c944"><span class="section-number-2">2</span> Регулярные выражения в oracle</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Если вам понадобилось найти в неструктурированном тексте число между
@@ -315,8 +315,8 @@ subexpressions вам нужно вернуть в качестве резуль
 осуществляется только при наличии тегов.
 </p>
 <div class="org-src-container">
-<pre class="src src-sql"><span style="color: #fb4933;">select</span> regexp_substr(<span style="color: #b8bb26;">'243 mysupertag-&gt;42&lt;-mysupersupertag'</span>, <span style="color: #b8bb26;">'mysupertag-&gt;(\d+)&lt;-mysupersupertag'</span>, 1, 1, <span style="color: #fb4933;">NULL</span>, 1) <span style="color: #fb4933;">as</span> extracted_value
-    <span style="color: #fb4933;">from</span> dual;
+<pre class="src src-sql">select regexp_substr('243 mysupertag-&gt;42&lt;-mysupersupertag', 'mysupertag-&gt;(\d+)&lt;-mysupersupertag', 1, 1, NULL, 1) as extracted_value
+    from dual;
 </pre>
 </div>
 
@@ -325,14 +325,14 @@ subexpressions вам нужно вернуть в качестве резуль
 Выбрать всё в т.ч. и теги, и заменить их помощью replace на пустоту
 </p>
 <div class="org-src-container">
-<pre class="src src-sql"><span style="color: #fb4933;">select</span> replace(
-                replace(
-                          regexp_substr(<span style="color: #b8bb26;">'243 mysupertag-&gt;42&lt;-mysupersupertag'</span>, <span style="color: #b8bb26;">'mysupertag-&gt;(\d+)&lt;-mysupersupertag'</span>, 1, 1, <span style="color: #fb4933;">NULL</span>, 1)
-                          , <span style="color: #b8bb26;">'mysupertag-&gt;'</span>, <span style="color: #b8bb26;">''</span>
-                        )
-                , <span style="color: #b8bb26;">'&lt;-mysupersupertag'</span>, <span style="color: #b8bb26;">''</span>
-              ) <span style="color: #fb4933;">as</span> extracted_value
-    <span style="color: #fb4933;">from</span> dual;
+<pre class="src src-sql">select replace(
+		replace(
+			  regexp_substr('243 mysupertag-&gt;42&lt;-mysupersupertag', 'mysupertag-&gt;(\d+)&lt;-mysupersupertag', 1, 1, NULL, 1)
+			  , 'mysupertag-&gt;', ''
+			)
+		, '&lt;-mysupersupertag', ''
+	      ) as extracted_value
+    from dual;
 </pre>
 </div>
 
@@ -343,8 +343,8 @@ in oracle there is no lookbehind but you can cheat with capture group?
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sql"><span style="color: #fb4933;">select</span> regexp_substr(<span style="color: #b8bb26;">'TIPTOP4152'</span>, <span style="color: #b8bb26;">'TOP(\d+)'</span>, 1, 1, <span style="color: #fb4933;">NULL</span>, 1) nbr
-    <span style="color: #fb4933;">from</span> dual;
+<pre class="src src-sql">select regexp_substr('TIPTOP4152', 'TOP(\d+)', 1, 1, NULL, 1) nbr
+    from dual;
 </pre>
 </div>
 <p>
@@ -355,7 +355,7 @@ in oracle there is no lookbehind but you can cheat with capture group?
 </div>
 <div id="postamble" class="status">
 <p class="author">&#1040;&#1074;&#1090;&#1086;&#1088;: Асриян Артур</p>
-<p class="date">Created: 2020-09-03 Чт 20:42</p>
+<p class="date">Created: 2021-01-22 Fri 00:38</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
